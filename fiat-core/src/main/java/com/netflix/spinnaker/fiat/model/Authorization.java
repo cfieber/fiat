@@ -16,7 +16,18 @@
 
 package com.netflix.spinnaker.fiat.model;
 
-public enum Authorization {
-  READ,
-  WRITE
+import lombok.NonNull;
+import lombok.Value;
+
+@Value
+public class Authorization {
+  String authorization;
+
+  public static Authorization of(String authorization) {
+    return new Authorization(authorization);
+  }
+
+  private Authorization(@NonNull String authorization) {
+    this.authorization = authorization.toUpperCase();
+  }
 }

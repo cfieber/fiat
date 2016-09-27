@@ -16,9 +16,12 @@
 
 package com.netflix.spinnaker.fiat.model.resources;
 
+import com.netflix.spinnaker.fiat.model.Authorization;
+
 import java.util.List;
+import java.util.Map;
 
 public interface GroupAccessControlled extends Resource {
 
-  List<String> getRequiredGroupMembership();
+  Map<Authorization, List<String>> getRequiredRoles();
 }

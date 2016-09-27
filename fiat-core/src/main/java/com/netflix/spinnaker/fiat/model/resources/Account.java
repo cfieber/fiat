@@ -22,9 +22,12 @@ import com.netflix.spinnaker.fiat.model.Authorization;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 public class Account implements GroupAccessControlled, Resource, Viewable {
@@ -32,7 +35,7 @@ public class Account implements GroupAccessControlled, Resource, Viewable {
 
   private String name;
   private String cloudProvider;
-  private List<String> requiredGroupMembership = new ArrayList<>();
+  private Map<Authorization, List<String>> requiredRoles = new HashMap<>();
 
   @JsonIgnore
   public View getView() {
@@ -43,11 +46,11 @@ public class Account implements GroupAccessControlled, Resource, Viewable {
   @NoArgsConstructor
   public static class View extends BaseView implements Authorizable {
     String name;
-    Set<Authorization> authorizations = ImmutableSet.of(Authorization.READ,
-                                                        Authorization.WRITE);
+    Set<Authorization> authorizations;
 
     public View(Account account) {
       this.name = account.name;
+      this.authorizations = ImmutableSet.copyOf(account.getRequiredRoles().keySet());
     }
   }
 }

@@ -117,7 +117,7 @@ public class DefaultPermissionsResolver implements PermissionsResolver {
             .forEach(resource -> {
               if (resource instanceof GroupAccessControlled) {
                 GroupAccessControlled gacResource = (GroupAccessControlled) resource;
-                if (gacResource.getRequiredGroupMembership().isEmpty()) {
+                if (gacResource.getRequiredRoles().isEmpty()) {
                   return; // Unrestricted resources are added later.
                 }
 

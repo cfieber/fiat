@@ -21,13 +21,13 @@ It exposes a RESTful interface for querying the access permissions for a particu
 ---
 
 ### Accounts
-Accounts are setup within Clouddriver and queried by Fiat for its configured `requiredGroupMembership` restrictions.
+Accounts are setup within Clouddriver and queried by Fiat for its configured `requiredRoles` restrictions.
 
 ### Applications
 Applications are the combination of config metadata pulled from Front50 and server group names (e.g., application-stack-details). Application permissions sit beside application configuration in S3/Google Cloud Storage.
 
 ### Service Accounts
-Fiat Service Accounts are groups that act as a user during automated triggers (say, from a GitHub push or Jenkins build). Authorization is built in by making the service account a member of a group specified in `requiredGroupMembership`.
+Fiat Service Accounts are groups that act as a user during automated triggers (say, from a GitHub push or Jenkins build). Authorization is built in by making the service account a member of a group specified in `requiredRoles`.
 
 ---
 
