@@ -16,6 +16,9 @@
 
 buildscript {
   repositories {
+    if (spinnakerGradleVersion.endsWith("-SNAPSHOT")) {
+      mavenLocal()
+    }
     jcenter()
     maven { url "https://spinnaker.bintray.com/gradle" }
     maven { url "https://plugins.gradle.org/m2/" }
@@ -24,10 +27,6 @@ buildscript {
     classpath "com.netflix.spinnaker.gradle:spinnaker-dev-plugin:$spinnakerGradleVersion"
     if (Boolean.valueOf(enablePublishing)) {
       classpath("com.netflix.spinnaker.gradle:spinnaker-dependency-bump-plugin:$spinnakerGradleVersion")
-      classpath "com.netflix.spinnaker.gradle:spinnaker-gradle-project:$spinnakerGradleVersion"
-// TODO: nebula-publishing-plugin version override should be removed as soon as spinnaker-gradle-project is updated
-// this override is needed to omit compileOnly dependencies from generated pom.xml
-      classpath "com.netflix.nebula:nebula-publishing-plugin:12.0.1"
     }
   }
 }
@@ -37,12 +36,9 @@ if (Boolean.valueOf(enablePublishing)) {
   apply plugin: "spinnaker.dependency-bump"
 }
 
-allprojects {
+subprojects {
   group = "com.netflix.spinnaker.fiat"
-  apply plugin: 'spinnaker.base-project'
-  if (Boolean.valueOf(enablePublishing)) {
-    apply plugin: 'spinnaker.project'
-  }
+  apply plugin: 'spinnaker.project'
 
   if ([korkVersion].find { it.endsWith("-SNAPSHOT") }) {
     repositories {
@@ -53,6 +49,11 @@ allprojects {
   if (name != "fiat-bom") {
     apply plugin: 'java-library'
     apply plugin: 'groovy'
+
+    bintraySpinnaker {
+      enabled = true
+      bintrayOrg = 'cfieber'
+    }
 
     test {
       testLogging {
@@ -70,11 +71,7 @@ allprojects {
         jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7103'
       }
     }
-  }
-}
 
-subprojects { project ->
-  if (name != "fiat-bom") {
     dependencies {
       implementation platform("com.netflix.spinnaker.kork:kork-bom:$korkVersion")
       compileOnly "org.projectlombok:lombok"

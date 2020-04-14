@@ -1,4 +1,4 @@
-apply plugin: 'spinnaker.application'
+apply plugin: 'spinnaker.package'
 
 ext {
   springConfigLocation = System.getProperty('spring.config.additional-location', "${System.getProperty('user.home')}/.spinnaker/")
