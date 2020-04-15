@@ -14,9 +14,24 @@
  * limitations under the License.
  */
 
+
+//This will go away and be replaced with the plugins block below once
+// publishing to gradlePluginPortal is approved
+buildscript {
+  repositories {
+    gradlePluginPortal()
+    maven { url 'https://dl.bintray.com/cfieber/buildtestrepo' }
+  }
+  dependencies {
+    classpath "io.spinnaker.gradle:spinnaker-project-plugin:$spinnakerGradleVersion"
+  }
+}
+
+/*
 plugins {
   id 'io.spinnaker.project' version "$spinnakerGradleVersion" apply false
 }
+*/
 
 subprojects {
   group = "com.netflix.spinnaker.fiat"
