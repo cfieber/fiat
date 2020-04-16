@@ -40,6 +40,7 @@ jobs:
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
           BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+          GRADLE_OPTS: -Xms2g -Xmx2g
         run: |
           ./gradlew -PenableCrossCompilerPlugin=true -PenablePublishing=true --info -Pversion="${RELEASE_VERSION}" -PbintrayUser="${BINTRAY_USER}" -PbintrayKey="${BINTRAY_API_KEY}" publish
       - name: Create release
