@@ -22,6 +22,4 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     - name: Build
-      env:
-        GRADLE_OPTS: -Xmx6g -Xms6g -Dorg.gradle.daemon=false
       run: ./gradlew -PenableCrossCompilerPlugin=true build
