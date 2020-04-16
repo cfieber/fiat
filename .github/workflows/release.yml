@@ -31,11 +31,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          . .github/workflows/release_info.sh ${{ github.event.repository.name }}
+          . .github/workflows/release_info.sh ${{ github.event.repository.full_name }}
           echo ::set-output name=CHANGELOG::$(echo -e "${CHANGELOG}")
           echo ::set-output name=SKIP_RELEASE::${SKIP_RELEASE}
           echo ::set-output name=IS_CANDIDATE::${IS_CANDIDATE}
-          echo ::set-output name=RELEASE_VERSION::${RELEASE_VERSION}
+          echo ::set-output name=RELEASE_VERSION::${GITHUB_REF/refs\/tags\/v/}
       - name: Release build
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
