@@ -41,7 +41,7 @@ jobs:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
           BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
           RELEASE_VERSION: ${{ steps.release_info.outputs.RELEASE_VERSION }}
-          GRADLE_OPTS: -Xms2g -Xmx2g
+          GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xms2g -Xmx2g"
         run: |
           ./gradlew -PenableCrossCompilerPlugin=true -PenablePublishing=true --info -Pversion="${RELEASE_VERSION}" -PbintrayUser="${BINTRAY_USER}" -PbintrayKey="${BINTRAY_API_KEY}" publish
       - name: Create release
