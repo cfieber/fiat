@@ -56,11 +56,9 @@ jobs:
            prerelease: ${{ steps.release_info.outputs.IS_CANDIDATE }}
       - name: Pause before dependency bump
         run: sleep 90
-      - name: Trigger dependency bump workflow
-        # TODO: this is disabled for testing
-        if: 'false' == 'true'
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.SPINNAKER_GITHUB_TOKEN }}
-          event-type: bump-dependencies
-          client-payload: '{"ref": "${{ github.ref }}"}'
+#      - name: Trigger dependency bump workflow
+#        uses: peter-evans/repository-dispatch@v1
+#        with:
+#          token: ${{ secrets.SPINNAKER_GITHUB_TOKEN }}
+#          event-type: bump-dependencies
+#          client-payload: '{"ref": "${{ github.ref }}"}'
