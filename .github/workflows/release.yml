@@ -35,7 +35,7 @@ jobs:
           echo ::set-output name=CHANGELOG::$(echo -e "${CHANGELOG}")
           echo ::set-output name=SKIP_RELEASE::${SKIP_RELEASE}
           echo ::set-output name=IS_CANDIDATE::${IS_CANDIDATE}
-          echo ::set-output name=RELEASE_VERSION::${GITHUB_REF/refs\/tags\/v/}
+          echo ::set-output name=RELEASE_VERSION::${RELEASE_VERSION}
       - name: Release build
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
